@@ -1,0 +1,71 @@
+resource "aws_s3_bucket" "example" {
+  bucket = "my-tf-test-bucket"
+
+  tags = {
+    Name        = "My bucket"
+    Environment = "Dev"
+  }
+}
+
+
+resource "aws_s3_bucket_intelligent_tiering_configuration" "example-entire-bucket" {
+  bucket = aws_s3_bucket.example.id
+  name   = "EntireBucket"
+
+  tiering {
+    access_tier = "DEEP_ARCHIVE_ACCESS"
+    days        = 180
+  }
+  tiering {
+    access_tier = "ARCHIVE_ACCESS"
+    days        = 125
+  }
+}
+
+resource "aws_s3_bucket" "example" {
+  bucket = "example"
+}
+
+
+
+
+
+provider "aws" {
+  region = "us-east-1" # Change this to your desired AWS region
+}
+
+resource "aws_s3_bucket" "example" {
+  bucket = "your-unique-bucket-name"
+  acl    = "private"
+}
+
+resource "aws_s3_bucket_lifecycle_configuration" "example" {
+  rule {
+    id      = "archive-after-30-days"
+    status  = "Enabled"
+    prefix  = "" # Prefix of objects to apply the rule to (empty string means all objects)
+    enabled = true
+
+    transition {
+      days          = 30
+      storage_class = "INTELLIGENT_TIERING"
+    }
+    
+    expiration {
+      days = 365 # This is an example, adjust it as needed
+    }
+  }
+}
+
+resource "aws_s3_bucket_intelligent_tiering_configuration" "example" {
+  name = "example"
+  bucket = aws_s3_bucket.example.id
+
+  filter {
+    prefix = "" # Prefix of objects to apply the rule to (empty string means all objects)
+  }
+
+  tierings {
+    access_tier = "ARCHIVE_ACCESS"
+  }
+}
