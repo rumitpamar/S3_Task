@@ -1,6 +1,14 @@
 # S3_Task
 
 
+
+###################################################################################################################################################
+
+# In Provider block I did not provide my AWS Keys for security purpose
+
+
+
+
  ###################################################################################################################################################################################################
 
   # Adding here the steps where object which is not accesible for more than 1 year out of S3 will be store into the "DEEP_ARCHIVE" tier for more cost optimization
@@ -18,7 +26,7 @@
 
 ##############  CloudFront Block  ##############
 
-#This block is by default uncommented; however, the Cloudfront block will be helpful if the data is accessible globally.
+# This block is by default uncommented; however, the Cloudfront block will be helpful if the data is accessible globally.
 # With CloudFront, our costs will decrease as the speed of data delivery increases.
 # Our expenses will go down with CloudFront as the speed at which data is delivered rises. However, as cloudfront stores data at many edge locations, it will cost us if the data is not globally available or if it is region-specific. 
 
